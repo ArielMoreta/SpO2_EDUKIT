@@ -75,3 +75,5 @@ Para desarrollar y ejecutar este proyecto, se necesitan los siguientes programas
 ## Consideraciones Finales
 
 Este proyecto permite la integración sencilla de sensores biométricos con microcontroladores para aplicaciones de monitoreo de salud. La flexibilidad en la configuración de sensores y la capacidad de operar tanto en modo conectado como desconectado hacen de este proyecto una solución robusta y adaptable para diversas necesidades.
+
+## Ariel Moreta - Adrian Vera
