@@ -1,12 +1,14 @@
-CREATE DATABASE tesis;
+-- Crear la base de datos
+CREATE DATABASE IF NOT EXISTS tesis;
 
--- Usar la base de datos
+-- Seleccionar la base de datos para su uso
 USE tesis;
 
--- Crear la tabla para almacenar los valores de SpO2 e IR
-CREATE TABLE oximetro (
-    id INT AUTO_INCREMENT PRIMARY KEY,   -- Identificador único para cada registro
-    spO2 FLOAT NOT NULL,                 -- Valor de SpO2 (Saturación de oxígeno en sangre)
-    ir FLOAT NOT NULL,                   -- Valor de IR (Infrarrojo)
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP  -- Fecha y hora de inserción del dato
+-- Crear la tabla oximetria
+CREATE TABLE oximetria (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    ir INT NOT NULL,
+    red INT NOT NULL,
+    spo2 FLOAT NOT NULL,
+    timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
