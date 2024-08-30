@@ -4,8 +4,8 @@ CREATE DATABASE IF NOT EXISTS tesis;
 -- Seleccionar la base de datos para su uso
 USE tesis;
 
--- Crear la tabla oximetria
-CREATE TABLE oximetria (
+-- Crear la tabla oximetrio
+CREATE TABLE oximetrio (
     id INT AUTO_INCREMENT PRIMARY KEY,
     ir INT NOT NULL,
     red INT NOT NULL,
