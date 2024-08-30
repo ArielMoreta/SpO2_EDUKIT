@@ -1,10 +1,10 @@
 <?php
 class Database {
-    private static $dbName = 'tesis';  // Nombre de la base de datos
+    private static $dbName = 'tesis'; 
     private static $dbHost = 'localhost';
     private static $dbPort = '3306'; 
-    private static $dbUsername = 'root';  // Usuario de la base de datos
-    private static $dbUserPassword = '';  // Contraseña del usuario
+    private static $dbUsername = 'root';
+    private static $dbUserPassword = '';
     private static $cont = null;
      
     public function __construct() {
@@ -31,29 +31,29 @@ class Database {
 header('Content-Type: application/json');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (!empty($_POST['spO2']) && !empty($_POST['ir'])) {
-        $spO2 = $_POST['spO2'];
+    if (!empty($_POST['ir']) && !empty($_POST['red']) && isset($_POST['spo2'])) {
         $ir = $_POST['ir'];
+        $red = $_POST['red'];
+        $spo2 = $_POST['spo2'];
 
         // Validación adicional
-        if (!is_numeric($spO2) || !is_numeric($ir)) {
-            echo json_encode(['status' => 'error', 'message' => 'Todos los datos deben ser números válidos.']);
+        if (!filter_var($ir, FILTER_VALIDATE_INT) || !filter_var($red, FILTER_VALIDATE_INT) || !is_numeric($spo2)) {
+            echo json_encode(['status' => 'error', 'message' => 'Los datos "ir", "red" deben ser números enteros válidos y "spo2" un valor numérico.']);
             exit;
         }
 
-        // Conexión y almacenamiento en la base de datos
         $pdo = Database::connect();
         try {
-            $sql = "INSERT INTO oximetro (spO2, ir) VALUES (?, ?)";
+            $sql = "INSERT INTO oximetro (ir, red, spo2) VALUES (?, ?, ?)";
             $q = $pdo->prepare($sql);
-            $q->execute([$spO2, $ir]);
+            $q->execute([$ir, $red, $spo2]);
 
             $lastId = $pdo->lastInsertId();
 
             Database::disconnect();
-            echo json_encode(['status' => 'success', 'message' => 'Dato insertado correctamente.', 'id' => $lastId]);
+            echo json_encode(['status' => 'success', 'message' => 'Datos insertados correctamente.', 'id' => $lastId]);
         } catch (PDOException $e) {
-            echo json_encode(['status' => 'error', 'message' => 'Error al insertar el dato: ' . $e->getMessage()]);
+            echo json_encode(['status' => 'error', 'message' => 'Error al insertar los datos: ' . $e->getMessage()]);
         }
     } else {
         echo json_encode(['status' => 'error', 'message' => 'Los datos POST están incompletos o vacíos.']);
